@@ -3,11 +3,11 @@ import csv
 import time
 from github import Github
 
+#pip install PyGithub
 #Start of function
 def search_github(keywords):
     """Search for the keyword and save it to a csv file"""
     query = '+'.join(keywords) + '+in:readme+in:description'
-
     if args.ascending:
         result = g.search_repositories(query, order='asc', sort='stars')
     elif args.descending:
@@ -28,6 +28,7 @@ def search_github(keywords):
                 break
             row = [str(repo.name), repo.description, repo.clone_url, str(repo.language), str(repo.updated_at)]
             writer.writerow(row)
+    return True
 
 def timestamp_name():
     """Updates the time and date for the csv filename"""
@@ -38,6 +39,7 @@ def main():
     """Main function of the program"""
     keywords = [keyword.strip() for keyword in search_term.split(',')]
     search_github(keywords)
+    return True
 #End of function
 
 if __name__ == '__main__':
